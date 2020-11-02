@@ -1,6 +1,8 @@
 // Environmental Variables
 require("dotenv").config();
 
+const port= process.env.PORT || 8080
+
 //Packages Require
 const path = require("path"),
   express = require("express"),
@@ -29,6 +31,6 @@ app.use((err, req, res, next) => {
 });
 
 // Server config
-app.listen(process.env.PORT, () => {
-  console.log(`The server is started on port ${process.env.PORT}`);
+app.listen(port, () => {
+  console.log(`The server is started on port ${port}`);
 });

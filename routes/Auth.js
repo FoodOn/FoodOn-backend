@@ -3,7 +3,7 @@ const express = require("express"),
   User = require("../models/User"),
   bcrypt = require("bcrypt"),
   router = express.Router(),
-  { signup, signin, signout } = require("../containers/Auth"),
+  { signup, signin, signout } = require("../controller/Auth"),
   { isAuthenticated } = require("../middleware/authenticate");
 
 router.post(
