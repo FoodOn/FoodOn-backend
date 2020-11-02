@@ -12,6 +12,14 @@ module.exports.signup = async (req, res, next) => {
       err.status = 422;
       throw err;
     }
+    req.body.otherAddress = req.body.otherAddress.trim();
+    req.body.homeName = req.body.homeName.trim();
+    if (req.body.otherAddress.length == 0) {
+      req.body.otherAddress = "Nothing Mentioned";
+    }
+    if (req.body.homeName.length == 0) {
+      req.body.homeName = "Nothing Mentioned";
+    }
     const user = new User(req.body);
     const hash = await bcrypt.hash(req.body.password, 10);
     user.password = hash;
@@ -66,7 +74,6 @@ module.exports.signin = async (req, res, next) => {
 };
 
 module.exports.signout = (req, res, next) => {
-    console.log(req.userId);
   res.json({
     message: "Logout succesfully",
   });

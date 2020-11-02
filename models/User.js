@@ -22,9 +22,34 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  address: {
+  localAddress: {
     type: String,
     required: true,
+    trim: true,
+  },
+  otherAddress: {
+    type: String,
+    trim: true,
+  },
+  city: {
+    type: String,
+    required: true,
+    lowercase: true,
+    trim: true,
+  },
+  state: {
+    type: String,
+    required: true,
+    lowercase: true,
+    trim: true,
+  },
+  areaCode: {
+    type: Number,
+    trim: true,
+    required: true,
+  },
+  homeName: {
+    type: String,
     lowercase: true,
     trim: true,
   },

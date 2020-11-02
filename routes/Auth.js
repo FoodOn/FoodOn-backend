@@ -3,7 +3,7 @@ const express = require("express"),
   User = require("../models/User"),
   bcrypt = require("bcrypt"),
   router = express.Router(),
-  { signup, signin, signout } = require("../containers/Auth"),
+  { signup, signin, signout } = require("../controllers/Auth"),
   { isAuthenticated } = require("../middleware/authenticate");
 
 router.post(
@@ -16,7 +16,6 @@ router.post(
       .withMessage("Fill all input fields")
       .isLength({ min: 6 })
       .withMessage("Password should contain minimum 6 character"),
-    body("address", "Fill all input fields").trim().notEmpty(),
     body("contact")
       .notEmpty()
       .withMessage("Fill all input fields")
@@ -36,6 +35,10 @@ router.post(
         }
         return true;
       }),
+      body("localAddress", "Fill all input fields").trim().notEmpty(),
+      body("state", "Fill all input fields").trim().notEmpty(),
+      body("city", "Fill all input fields").trim().notEmpty(),
+      body("areaCode", "Fill all input fields").trim().notEmpty()
   ],
   signup
 );
