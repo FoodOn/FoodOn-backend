@@ -1,9 +1,10 @@
 require("dotenv").config();
-const User = require("../models/User"),
+const User = require("../models/user"),
   jwt = require("jsonwebtoken"),
   bcrypt = require("bcrypt"),
   { validationResult } = require("express-validator");
 
+//Controllers
 module.exports.signup = async (req, res, next) => {
   try {
     const errors = validationResult(req);

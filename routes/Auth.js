@@ -1,11 +1,12 @@
 const express = require("express"),
-  { body } = require("express-validator"),
-  User = require("../models/User"),
-  bcrypt = require("bcrypt"),
   router = express.Router(),
-  { signup, signin, signout } = require("../controllers/Auth"),
+  { body } = require("express-validator"),
+  User = require("../models/user"),
+  bcrypt = require("bcrypt"),
+  { signup, signin, signout } = require("../controllers/auth"),
   { isAuthenticated } = require("../middleware/authenticate");
 
+//Routes
 router.post(
   "/signup",
   [
@@ -35,10 +36,10 @@ router.post(
         }
         return true;
       }),
-      body("localAddress", "Fill all input fields").trim().notEmpty(),
-      body("state", "Fill all input fields").trim().notEmpty(),
-      body("city", "Fill all input fields").trim().notEmpty(),
-      body("areaCode", "Fill all input fields").trim().notEmpty()
+    body("localAddress", "Fill all input fields").trim().notEmpty(),
+    body("state", "Fill all input fields").trim().notEmpty(),
+    body("city", "Fill all input fields").trim().notEmpty(),
+    body("areaCode", "Fill all input fields").trim().notEmpty(),
   ],
   signup
 );
