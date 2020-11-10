@@ -13,14 +13,14 @@ module.exports.signup = async (req, res, next) => {
       err.status = 422;
       throw err;
     }
-    req.body.otherAddress = req.body.otherAddress.trim();
-    req.body.homeName = req.body.homeName.trim();
-    if (req.body.otherAddress.length == 0) {
-      req.body.otherAddress = "Nothing Mentioned";
-    }
-    if (req.body.homeName.length == 0) {
-      req.body.homeName = "Nothing Mentioned";
-    }
+    req.body.otherAddress = req.body.otherAddress ? req.body.otherAddress.trim() : "Nothing Mentioned";
+    req.body.homeName = req.body.homeName ?  req.body.homeName.trim():"Nothing Mentioned";
+    // if (req.body.otherAddress.length == 0) {
+    //   req.body.otherAddress = "Nothing Mentioned";
+    // }
+    // if (req.body.homeName.length == 0) {
+    //   req.body.homeName = "Nothing Mentioned";
+    // }
     const user = new User(req.body);
     const hash = await bcrypt.hash(req.body.password, 10);
     user.password = hash;
@@ -36,6 +36,7 @@ module.exports.signup = async (req, res, next) => {
       user: saveUser,
     });
   } catch (err) {
+    console.log(err)
     if (err.status == undefined) {
       err.status = 500;
       err.message = "Something went wrong";

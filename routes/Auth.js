@@ -28,7 +28,7 @@ router.post(
       .isEmail()
       .withMessage("Enter a valid email")
       .custom(async (email, { req }) => {
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email });
         if (user) {
           const err = new Error("Email is already existed,please sign in");
           err.status = 422;

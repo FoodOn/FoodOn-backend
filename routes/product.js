@@ -42,7 +42,7 @@ router.get("/product", getProductsByQuery);
 router.get("/product/:userId", getUserProducts);
 
 router.put(
-  "/product/chnageAvailability/:productId/:userId",
+  "/product/changeAvailability/:productId/:userId",
   isAuthenticated,
   changeAvailability
 );
