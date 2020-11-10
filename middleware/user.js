@@ -2,7 +2,9 @@ const User = require("../models/user");
 
 module.exports.getUser = async (req, res, next, id) => {
   try {
-    const user = await User.findById(id).populate("userProduct");
+    const user = await User.findById(id)
+      .populate("userProduct")
+      .populate("cart.product");
     if (!user) {
       const err = new Error("User not found");
       err.status = 400;

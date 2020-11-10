@@ -9,9 +9,11 @@ const path = require("path"),
   bodyParser = require("body-parser"),
   cors = require("cors");
 
+
 //Routes Require
 const Auth = require("./routes/Auth"),
   Product = require("./routes/product");
+  User= require('./routes/user')
 
 //Mongodb config
 Database(process.env.MONGODB);
@@ -30,6 +32,8 @@ app.use(express.static(path.join(__dirname + "images")));
 //Routes
 app.use("/api", Auth);
 app.use("/api", Product);
+app.use("/api", User);
+
 
 //Error Handling
 app.use((err, req, res, next) => {
@@ -38,6 +42,7 @@ app.use((err, req, res, next) => {
     message: err.message,
   });
 });
+
 
 // Server config
 app.listen(process.env.PORT, () => {

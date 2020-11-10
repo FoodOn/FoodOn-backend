@@ -63,6 +63,42 @@ const userSchema = new mongoose.Schema({
       ref: "Product",
     },
   ],
+  cart: [
+    {
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+      quantity:{
+        type:Number,
+        default:1
+      }
+    }
+  ],
 });
+
+userSchema.methods={
+  verifyThatProductIsAlreadyInCart:function (productId)
+  {
+      for (const ins of this.cart) {
+        if(ins.product._id==productId)
+        {
+            
+            return true
+        }
+      }
+      return false
+  },
+  cartLength:function()
+  {
+    
+    if(this.cart.length==0)
+    {
+      const err = new Error("no products in cart");
+            err.status = 400;
+            throw err; 
+    }
+  }
+}
 
 module.exports = mongoose.model("User", userSchema);
