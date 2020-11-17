@@ -50,11 +50,10 @@ const userSchema = new mongoose.Schema({
   },
   homeName: {
     type: String,
-    lowercase: true,
     trim: true,
   },
   contact: {
-    type: Number,
+    type: String,
     required: true,
   },
   userProduct: [

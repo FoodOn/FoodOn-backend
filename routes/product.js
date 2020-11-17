@@ -12,6 +12,7 @@ const express = require("express"),
     getUserProducts,
     changeAvailability,
   } = require("../controllers/product");
+  
 // Middleware
 router.param("userId", getUser);
 router.param("productId", getProduct);

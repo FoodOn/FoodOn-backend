@@ -35,6 +35,8 @@ const fileFilter = (req, file, cb) => {
       file.mimetype === "image/png"
     ) {
       if (req.product) {
+        console.log(req.product.image.originalName);
+        console.log(file.originalname);
         if (req.product.image.originalName == file.originalname) {
           req.imageUpdate = false;
           return cb(null, false);
@@ -42,7 +44,7 @@ const fileFilter = (req, file, cb) => {
           req.imageUpdate = true;
         }
       }
-      cb(null, true);
+      return cb(null, true);
     } else {
       cb(new Error("Invalid mimetype,only JPEG,PNG and JPG"), false);
     }

@@ -1,11 +1,72 @@
-const User = require("../models/user");
+const User = require("../models/user"),
+  _ = require("lodash"),
+  { productDelete } = require("../util/productDelete");
 
+//Controllers
 module.exports = {
+  updateUser: async (req, res, next) => {
+    try {
+      let user = req.profile;
+      user = _.extend(user, req.body);
+      const saveUser = await user.save();
+      if (!saveUser) {
+        const err = new Error("User not saved");
+        err.status = 400;
+        throw err;
+      }
+      return res.json({
+        message: "User successfully updated",
+      });
+    } catch (err) {
+      if (err.status == undefined) {
+        err.status = 500;
+        err.message = "Something went wrong";
+      }
+      return next(err);
+    }
+  },
+
+  deleteUser: async (req, res, next) => {
+    const user = req.profile;
+    const userProduct = [...user.userProduct];
+    try {
+      for (let product of userProduct) {
+        let key = product.image.key;
+        let id = product._id;
+        await productDelete(user, key, id, next);
+      }
+      const deleteUser = await User.findByIdAndDelete(req.params.userId);
+      if (!deleteUser) {
+        const err = new Error("User not deleted");
+        err.status = 400;
+        throw err;
+      }
+      return res.json({
+        message: "User successfully deleted",
+      });
+    } catch (err) {
+      if (err.status == undefined) {
+        err.status = 500;
+        err.message = "Something went wrong";
+      }
+      return next(err);
+    }
+  },
+
+  getSpecifiedUser: (req, res, next) => {
+    req.profile.userProduct = undefined;
+    req.profile.password = undefined;
+    res.json({
+      user: req.profile,
+    });
+  },
+
   getCartProducts: (req, res, next) => {
     return res.json({
       cart: req.profile.cart,
     });
   },
+
   addProductInCart: async (req, res, next) => {
     try {
       let user = req.profile;
@@ -35,6 +96,7 @@ module.exports = {
       return next(err);
     }
   },
+
   incrementDecrementItem: async (req, res, next) => {
     try {
       req.profile.cartLength();
@@ -62,6 +124,7 @@ module.exports = {
       return next(error);
     }
   },
+
   deleteProductFromCart: async (req, res, next) => {
     try {
       //   get id of cart obj
