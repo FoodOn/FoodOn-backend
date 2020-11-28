@@ -62,16 +62,10 @@ const userSchema = new mongoose.Schema({
       ref: "Product",
     },
   ],
-  cart: [
+  cartItems: [
     {
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-      },
-      quantity:{
-        type:Number,
-        default:1
-      }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart", 
     }
   ],
 });
@@ -79,7 +73,7 @@ const userSchema = new mongoose.Schema({
 userSchema.methods={
   verifyThatProductIsAlreadyInCart:function (productId)
   {
-      for (const ins of this.cart) {
+      for (const ins of this.cartItems) {
         if(ins.product._id==productId)
         {
             
@@ -91,12 +85,28 @@ userSchema.methods={
   cartLength:function()
   {
     
-    if(this.cart.length==0)
+    if(this.cartItems.length==0)
     {
       const err = new Error("no products in cart");
             err.status = 400;
             throw err; 
     }
+  },
+  verifyQuantity:function(state,id)
+  {
+    var num;
+    for (const inc of this.cartItems) {
+        if(inc._id==id)
+        {
+          num=Number(inc.quantity)
+          state=Number(state)
+          if(num+state === 0)
+          {
+            return true
+          }
+        }
+    }
+      return false
   }
 }
 

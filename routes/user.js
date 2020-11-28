@@ -12,6 +12,7 @@ const router = require("express").Router(),
     updateUser,
     deleteUser,
     getSpecifiedUser,
+    removeAll
   } = require("../controllers/user");
 
 // Middleware
@@ -51,8 +52,10 @@ router.get("/cart/:userId", getCartProducts);
 
 router.post("/cart/addProduct/:userId", addProductInCart);
 
-router.post("/cart/changeq/:cartId/:state/:userId", incrementDecrementItem);
+router.get("/cart/changeq/:cartId/:state/:userId", incrementDecrementItem);
 
-router.delete("/cart/:cartId/:userId", deleteProductFromCart);
+router.delete("/cart/:userId", deleteProductFromCart);
+
+router.delete('/cart/removeall/:userId',removeAll)
 
 module.exports = router;
