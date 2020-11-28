@@ -235,7 +235,7 @@ module.exports = {
     try {
       // if cart length is zero
       req.profile.cartLength();
-      const { cartId } = req.body;
+      const { cartId } = req.params;
       let newCart = await Cart.findByIdAndDelete(cartId);
 
       if (!newCart) {
