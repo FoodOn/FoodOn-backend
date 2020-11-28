@@ -1,7 +1,7 @@
-const upload = require("../config/multer"),
+const {uploadUser} = require("../config/multer-user"),
   multer = require("multer");
-module.exports.uploadImage = (req, res, next) => {
-  upload.single("image")(req, res, (err) => {
+module.exports.uploadImageUser = (req, res, next) => {
+  uploadUser.single("image")(req, res, (err) => {
     const now = err && err.code == "UnknownEndpoint" ? true : false;
     // internet disconnect
     if (now) {

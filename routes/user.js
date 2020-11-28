@@ -4,6 +4,7 @@ const router = require("express").Router(),
   { getProduct } = require("../middleware/product"),
   { isAuthenticated } = require("../middleware/authenticate"),
   { checkForConnectivity } = require("../middleware/checkForConnectivity"),
+  { uploadImageUser } = require("../middleware/uploadImage-user"),
   {
     getCartProducts,
     addProductInCart,
@@ -12,6 +13,7 @@ const router = require("express").Router(),
     updateUser,
     deleteUser,
     getSpecifiedUser,
+    removeAll,
   } = require("../controllers/user");
 
 // Middleware
@@ -21,6 +23,8 @@ router.param("productId", getProduct);
 //Routes
 router.put(
   "/user/update/:userId",
+  // checkForConnectivity,
+  uploadImageUser,
   [
     body("name", "Fill all input fields").trim().notEmpty(),
     body("lastName", "Fill all input fields").trim().notEmpty(),
@@ -47,12 +51,14 @@ router.delete(
 
 router.get("/user/:userId", isAuthenticated, getSpecifiedUser);
 
-router.get("/cart/:userId", getCartProducts);
+router.get("/cart/:userId",isAuthenticated, getCartProducts);
 
-router.post("/cart/addProduct/:userId", addProductInCart);
+router.post("/cart/addProduct/:userId",isAuthenticated, addProductInCart);
 
-router.post("/cart/changeq/:cartId/:state/:userId", incrementDecrementItem);
+router.get("/cart/changeq/:cartId/:state/:userId", isAuthenticated,incrementDecrementItem);
 
-router.delete("/cart/:cartId/:userId", deleteProductFromCart);
+router.delete("/cart/:userId",isAuthenticated, deleteProductFromCart);
+
+router.delete("/cart/removeall/:userId",isAuthenticated, removeAll);
 
 module.exports = router;

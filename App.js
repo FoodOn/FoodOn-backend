@@ -11,7 +11,7 @@ const path = require("path"),
 
 
 //Routes Require
-const Auth = require("./routes/Auth"),
+const Auth = require("./routes/auth"),
   Product = require("./routes/product");
   User= require('./routes/user')
 

@@ -8,24 +8,26 @@ const aws = require("aws-sdk"),
 aws.config.update({
   secretAccessKey: process.env.SECRET_ACCESS_KEY,
   accessKeyId: process.env.ACCESS_KEY_ID,
-  region: "ap-south-1",
+  region: process.env.AWS_REGION,
 });
 
 const s3 = new aws.S3();
 
 const fileFilter = (req, file, cb) => {
-  let { name, description, price, quantity, category } = req.body;
+  let { name, description, price, quantity, category, time } = req.body;
   name = name.trim();
   description = description.trim();
   price = price.trim();
   quantity = quantity.trim();
   category = category.trim();
+  time = time.trim();
   if (
     name == "" ||
     description == "" ||
     price == "" ||
     quantity == "" ||
-    category == ""
+    category == "" ||
+    trim == ""
   ) {
     cb(new Error("Fill all the input fields"), false);
   } else {
@@ -51,14 +53,14 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({
+const uploadProduct = multer({
   limits: {
     fileSize: 1024 * 1024,
   },
   fileFilter: fileFilter,
   storage: multerS3({
     s3: s3,
-    bucket: "homemake",
+    bucket: process.env.AWS_BUCKET_PRODUCT,
     acl: "public-read",
     metadata: function (req, file, cb) {
       cb(null, { fieldName: "homemaker-image-upload" });
@@ -69,4 +71,4 @@ const upload = multer({
   }),
 });
 
-module.exports = upload;
+module.exports.uploadProduct = uploadProduct;

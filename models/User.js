@@ -56,48 +56,55 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {
+    location: { type: String, required: true },
+    size: { type: Number, required: true },
+    originalName: { type: String, required: true },
+    key: { type: String, required: true },
+  },
   userProduct: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
     },
   ],
-  cart: [
+  cartItems: [
     {
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-      },
-      quantity:{
-        type:Number,
-        default:1
-      }
-    }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
+    },
   ],
 });
 
-userSchema.methods={
-  verifyThatProductIsAlreadyInCart:function (productId)
-  {
-      for (const ins of this.cart) {
-        if(ins.product._id==productId)
-        {
-            
-            return true
+userSchema.methods = {
+  verifyThatProductIsAlreadyInCart: function (productId) {
+    for (const ins of this.cartItems) {
+      if (ins.product._id == productId) {
+        return true;
+      }
+    }
+    return false;
+  },
+  cartLength: function () {
+    if (this.cartItems.length == 0) {
+      const err = new Error("no products in cart");
+      err.status = 400;
+      throw err;
+    }
+  },
+  verifyQuantity: function (state, id) {
+    var num;
+    for (const inc of this.cartItems) {
+      if (inc._id == id) {
+        num = Number(inc.quantity);
+        state = Number(state);
+        if (num + state === 0) {
+          return true;
         }
       }
-      return false
-  },
-  cartLength:function()
-  {
-    
-    if(this.cart.length==0)
-    {
-      const err = new Error("no products in cart");
-            err.status = 400;
-            throw err; 
     }
-  }
-}
+    return false;
+  },
+};
 
 module.exports = mongoose.model("User", userSchema);

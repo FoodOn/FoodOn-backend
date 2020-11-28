@@ -1,6 +1,6 @@
 const express = require("express"),
   router = express.Router(),
-  { uploadImage } = require("../middleware/uploadImage"),
+  { uploadImageProduct } = require("../middleware/uploadImage-product"),
   { getProduct } = require("../middleware/product"),
   { getUser } = require("../middleware/user"),
   { isAuthenticated } = require("../middleware/authenticate"),
@@ -21,14 +21,14 @@ router.param("productId", getProduct);
 router.post(
   "/product/create/:userId",
   isAuthenticated,
-  uploadImage,
+  uploadImageProduct,
   createProduct
 );
 
 router.put(
   "/product/update/:productId/:userId",
   isAuthenticated,
-  uploadImage,
+  uploadImageProduct,
   updateProduct
 );
 

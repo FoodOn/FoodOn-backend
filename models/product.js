@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema(
       location: { type: String, required: true },
       size: { type: Number, required: true },
       originalName: { type: String, required: true },
-      key: { type: String, required: true }
+      key: { type: String, required: true },
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -44,6 +44,11 @@ const productSchema = new mongoose.Schema(
       type: String,
       trim: true,
       lowercase: true,
+    },
+    time: {
+      type: String,
+      required: true,
+      trim: true,
     },
   },
   { timestamps: true }

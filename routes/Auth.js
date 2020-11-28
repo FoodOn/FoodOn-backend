@@ -4,11 +4,13 @@ const express = require("express"),
   User = require("../models/user"),
   bcrypt = require("bcrypt"),
   { signup, signin, signout } = require("../controllers/auth"),
-  { isAuthenticated } = require("../middleware/authenticate");
+  { isAuthenticated } = require("../middleware/authenticate"),
+  { uploadImageUser } = require("../middleware/uploadImage-user");
 
 //Routes
 router.post(
   "/signup",
+  uploadImageUser,
   [
     body("name", "Fill all input fields").trim().notEmpty(),
     body("lastName", "Fill all input fields").trim().notEmpty(),

@@ -8,7 +8,7 @@ const aws = require("aws-sdk"),
 
 module.exports.deleteImageFromAws = (key, cb) => {
   const params = {
-    Bucket: "homemake",
+    Bucket: process.env.AWS_BUCKET_USER,
     Key: key,
   };
   s3.deleteObject(params, cb);
