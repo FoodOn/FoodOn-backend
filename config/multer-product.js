@@ -27,7 +27,7 @@ const fileFilter = (req, file, cb) => {
     price == "" ||
     quantity == "" ||
     category == "" ||
-    trim == ""
+    time == ""
   ) {
     cb(new Error("Fill all the input fields"), false);
   } else {

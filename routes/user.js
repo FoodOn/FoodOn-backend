@@ -51,11 +51,11 @@ router.delete(
 
 router.get("/user/:userId", isAuthenticated, getSpecifiedUser);
 
-router.get("/cart/:userId",isAuthenticated, getCartProducts);
+router.get("/cart/:userId",/*isAuthenticated,*/ getCartProducts);
 
-router.post("/cart/addProduct/:userId",isAuthenticated, addProductInCart);
+router.post("/cart/addProduct/:userId",/*isAuthenticated,*/ addProductInCart);
 
-router.get("/cart/changeq/:cartId/:state/:userId", isAuthenticated,incrementDecrementItem);
+router.get("/cart/change/:cartId/:state/:userId", isAuthenticated,incrementDecrementItem);
 
 router.delete("/cart/:userId",isAuthenticated, deleteProductFromCart);
 

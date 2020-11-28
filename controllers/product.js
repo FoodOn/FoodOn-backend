@@ -128,7 +128,7 @@ module.exports = {
     }
 
     try {
-      const products = await Product.find(option).populate(
+      let products = await Product.find(option).populate(
         "user",
         "-password -userProduct"
       );
@@ -137,10 +137,20 @@ module.exports = {
         err.status = 404;
         throw err;
       }
+      if (
+        req.query.userId != undefined &&
+        req.query.userId != null &&
+        req.query.userId != ""
+      ) {
+        products = products.filter((prod) => {
+          return prod.user._id != req.query.userId;
+        });
+      }
       return res.json({
         products: products,
       });
     } catch (err) {
+      console.log(err);
       if (err.status == undefined) {
         err.status = 500;
         err.message = "Something went wrong";
