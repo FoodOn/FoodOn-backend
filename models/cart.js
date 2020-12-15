@@ -7,7 +7,9 @@ var cartSchema=new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
       },
-    customerId:String
+    customerId:String,
+    cheifId:String,
+    note:String
     
 })
 
