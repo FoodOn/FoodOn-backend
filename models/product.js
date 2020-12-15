@@ -54,4 +54,14 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+var autopopulate=function(next){
+  this.populate('user')
+  next()
+}
+productSchema
+        .pre('findOne',autopopulate)
+        .pre('find',autopopulate)
+        .pre('findOneAndUpdate',autopopulate)
+        
+
 module.exports = mongoose.model("Product", productSchema);

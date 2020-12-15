@@ -143,7 +143,7 @@ module.exports = {
 
   addProductInCart: async (req, res, next) => {
     try {
-      const { productId, quantity } = req.body;
+      const { productId, quantity,note } = req.body;
 
       // TODO check id length it is optional feature
       isLength24(productId);
@@ -165,6 +165,9 @@ module.exports = {
       var newCart = await new Cart({
         quantity,
         product: productId,
+        note,
+        customerId:user._id,
+        cheifId:product.user._id
       }).save();
 
       if (!newCart) {
