@@ -68,7 +68,7 @@ module.exports = {
           id: user._id.toString(),
         },
         process.env.SECRET,
-        { expiresIn: "1h" }
+        { expiresIn: "10h" }
       );
       return res.json({
         message: "User signin successfully",

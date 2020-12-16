@@ -1,10 +1,10 @@
-const { deleteImageFromAws } = require("../config/deleteImageFromAws");
-const User = require("../models/user"),
+const { deleteImageFromAws } = require("../config/deleteImageFromAws"),
+  { Product } = require("../models/product"),
+  User = require("../models/user"),
   _ = require("lodash"),
-  { productDelete } = require("../util/productDelete");
-Cart = require("../models/cart");
-Product = require("../models/product");
-const { isLength24 } = require("../util/general");
+  { productDelete } = require("../util/productDelete"),
+  Cart = require("../models/cart"),
+  { isLength24 } = require("../util/general");
 
 //Controllers
 module.exports = {
@@ -143,7 +143,7 @@ module.exports = {
 
   addProductInCart: async (req, res, next) => {
     try {
-      const { productId, quantity,note } = req.body;
+      const { productId, quantity, note } = req.body;
 
       // TODO check id length it is optional feature
       isLength24(productId);
@@ -166,8 +166,8 @@ module.exports = {
         quantity,
         product: productId,
         note,
-        customerId:user._id,
-        cheifId:product.user._id
+        customerId: user._id,
+        cheifId: product.user._id,
       }).save();
 
       if (!newCart) {

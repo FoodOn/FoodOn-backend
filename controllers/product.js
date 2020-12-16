@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const Product = require("../models/product"),
+const {Product} = require("../models/product"),
   { deleteImageFromAws } = require("../config/deleteImageFromAws"),
   { productDelete } = require("../util/productDelete"),
   _ = require("lodash");

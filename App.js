@@ -9,11 +9,11 @@ const path = require("path"),
   bodyParser = require("body-parser"),
   cors = require("cors");
 
-
 //Routes Require
 const Auth = require("./routes/auth"),
-  Product = require("./routes/product");
-  User= require('./routes/user')
+  Product = require("./routes/product"),
+  User = require("./routes/user"),
+  Order = require("./routes/order");
 
 //Mongodb config
 Database(process.env.MONGODB);
@@ -25,15 +25,15 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-type,Authorization");
   next();
 });
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + "images")));
 
 //Routes
 app.use("/api", Auth);
 app.use("/api", Product);
 app.use("/api", User);
-
+app.use("/api", Order);
 
 //Error Handling
 app.use((err, req, res, next) => {
@@ -42,7 +42,6 @@ app.use((err, req, res, next) => {
     message: err.message,
   });
 });
-
 
 // Server config
 app.listen(process.env.PORT, () => {

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-
+const mongoose = require("mongoose"),
+  { orderItemSchema } = require("../models/orderItem");
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -72,6 +72,22 @@ const userSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cart",
+    },
+  ],
+  orders_as_user: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Order",
+    },
+  ],
+  orders_as_cheif: [
+    {
+      order_item: orderItemSchema,
+      address: {
+        type: String,
+        trim: true,
+        default: null,
+      },
     },
   ],
 });
