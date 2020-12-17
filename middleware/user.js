@@ -5,7 +5,9 @@ module.exports.getUser = async (req, res, next, id) => {
   try {
     const user = await User.findById(id)
       .populate("userProduct")
-      .populate({ path: "cartItems", populate: { path: "product" } });
+      .populate({ path: "cartItems", populate: { path: "product" } })
+      .populate("orders_as_user")
+      .populate("orders_as_cheif")
     if (!user) {
       const err = new Error("User not found");
       err.status = 400;
