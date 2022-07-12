@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dest/app.js",
     "prestart": "npx knex migrate:latest",
-    "build": "npx tsc  -w",
+    "build": "npx tsc",
     "lint": "npx eslint \"src/**/*.ts\"",
     "lint-fix": "npx eslint \"src/**/*.ts\" --fix"
   },
