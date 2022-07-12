@@ -1,0 +1,19 @@
+{
+    "DB": {
+        "DB_DATABASE": "DB_DATABASE",
+        "DB_USER": "DB_USER",
+        "DB_PASSWORD": "DB_PASSWORD",
+        "DB_HOST": "DB_HOST",
+        "DB_PORT": "DB_PORT"
+    },
+    "SERVER": {
+        "SERVER_PORT": "PORT",
+        "SERVER_JWT_SECRET_KEY": "SERVER_JWT_SECRET_KEY",
+        "SERVER_DOMAIN": "SERVER_DOMAIN"
+    },
+    "GOOGLE": {
+        "GOOGLE_CLIENT_ID": "GOOGLE_CLIENT_ID",
+        "GOOGLE_SECRET": "GOOGLE_SECRET",
+        "GOOGLE_REDIRECT": "GOOGLE_REDIRECT"
+    }
+}
