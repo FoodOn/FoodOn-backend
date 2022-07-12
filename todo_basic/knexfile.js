@@ -6,7 +6,9 @@
 
 const config = require('config');
 
-const { DB_USER, DB_DATABASE, DB_PASSWORD } = config.get('DB');
+const {
+    DB_USER, DB_DATABASE, DB_PASSWORD, DB_HOST, DB_PORT,
+} = config.get('DB');
 
 module.exports = {
     development: {
@@ -15,6 +17,11 @@ module.exports = {
             database: DB_DATABASE,
             user: DB_USER,
             password: DB_PASSWORD,
+            host: DB_HOST,
+            port: DB_PORT,
+            ssl: {
+                rejectUnauthorized: false,
+            },
         },
         pool: {
             min: 2,
@@ -31,6 +38,11 @@ module.exports = {
             database: DB_DATABASE,
             user: DB_USER,
             password: DB_PASSWORD,
+            host: DB_HOST,
+            port: DB_PORT,
+            ssl: {
+                rejectUnauthorized: false,
+            },
         },
         pool: {
             min: 2,

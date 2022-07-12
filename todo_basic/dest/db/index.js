@@ -48,6 +48,9 @@ var pool = new pg_1.Pool({
     database: DB_DATABASE,
     password: DB_PASSWORD,
     port: DB_PORT,
+    ssl: {
+        rejectUnauthorized: false,
+    },
 });
 var db = {
     query: function (data) { return new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {

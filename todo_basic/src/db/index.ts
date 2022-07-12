@@ -18,13 +18,16 @@ const pool = new Pool({
     database: DB_DATABASE,
     password: DB_PASSWORD,
     port: DB_PORT,
+    ssl: {
+        rejectUnauthorized: false,
+    },
 });
 const db = {
-    query: (data:Data)
+    query: (data: Data)
         // eslint-disable-next-line no-async-promise-executor
         : Promise<any> => new Promise(async (resolve, reject) => {
         try {
-            const client:PoolClient = await pool.connect();
+            const client: PoolClient = await pool.connect();
             const res = await client.query(data);
             client.release();
             resolve(res);
